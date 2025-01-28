@@ -1,0 +1,90 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   background-color: #12343b;
+   text-align: center;
+   color: white;
+   /* border: 2px solid red; */
+}
+
+.main-content {
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   /* border: 2px solid green; */
+}
+
+.segment1 {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+   /* border: 3px solid blue; */
+   height: 50%;
+  
+   
+}
+
+.buttons {
+   border: 3px solid #c0c0c0;
+   width: 638px;
+   cursor: pointer;
+   display: flex;
+   justify-content: space-around;
+   height: 40px;
+   border-radius: 13px;
+   background: aliceblue;
+   /* margin-top: -400px; */
+   /* border: 4px solid red; */
+}
+
+button {
+   font-family: math;
+   border-radius: 8px;
+   color: #ffffff;
+   background: #6c707c;
+   margin: 2px 8px 8px 8px;
+   height: 30px;
+   width: 122px;
+   font-size: 20px;
+   cursor: pointer;
+}
+
+button:active {
+   background-color: #4a4e57;
+}
+
+.custom-alert {
+   position: fixed;
+   top: 20px;
+   right: 20px;
+   width: 200px;
+   padding: 10px;
+   background-color: #ffcccc;
+   color: #900;
+   font-size: 14px;
+   border-radius: 8px;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+   z-index: 1000;
+   display: none;
+   text-align: center;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  
+
+   .custom-alert {
+       top: 10px; /* Adjust alert position */
+       right: 10px;
+       width: 160px; /* Slightly smaller alert on small screens */
+   }
+
+   h1 {
+       font-size: 1.5rem; /* Adjust heading size on smaller screens */
+   }
+}

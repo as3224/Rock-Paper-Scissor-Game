@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Rock Paper Scissors Game</h1>
+    <div class="main-content">
+        <div class="segment1">
+
+            <div class="buttons">
+    
+                <button class="choice-button" onclick="
+                let computerChoice = generateComputerChoice();
+                let resultMsg = getResult('Rock', computerChoice);
+                score.showScore('Rock', computerChoice, resultMsg);
+                ">Rock</button>
+            
+                <button class="choice-button" onclick="
+                 computerChoice = generateComputerChoice();
+                 resultMsg = getResult('Paper', computerChoice);
+                score.showScore('Paper', computerChoice, resultMsg);
+                ">Paper</button>
+            
+                <button class="choice-button" onclick="
+                 computerChoice = generateComputerChoice();
+                 resultMsg = getResult('Scissors', computerChoice);
+                score.showScore('Scissors', computerChoice, resultMsg);
+                ">Scissors</button>
+            
+                <button class="choice-button" onclick="
+                score.win = 0;
+                score.loss = 0;
+                score.tie = 0;
+                localStorage.setItem('key1', JSON.stringify(score));
+                document.querySelector('#user-move').innerText = ``;
+                document.querySelector('#computer-move').innerText = ``;
+                document.querySelector('#result').innerText = ` `;
+                document.querySelector('#score').innerHTML = ``;
+                document.querySelector('#score').innerHTML = `
+                <h3>Current match score</h3>
+                win: ${score.win} loss: ${score.loss} tie: ${score.tie}`;
+                showCustomAlert('Game has been reset!');
+                
+            
+            
+            ">Reset</button>
+        
+    </div> 
+     <!-- buttons div end -->
+           
+            <h3 id="user-move"></h3>
+            <h3 id="computer-move"></h3>
+            <h3 id="result"></h3>
+            <h3 id="score"></h3>
+    
+    
+        </div> 
+         <!-- main div end -->
+
+
+
+
+    </div>
+    
+   
+
+
+</body>
+
+
+
+
+
+
+
+<script>
+    function generateComputerChoice() {
+        const randomNum = Math.random() * 3;
+        if (randomNum <= 1)
+            return 'Rock';
+        else if (randomNum <= 2)
+            return 'Paper';
+        else
+            return 'Scissors';
+    }
+
+
+    function getResult(userChoice, computerChoice) {
+        if (userChoice === 'Rock') {
+            if (computerChoice === 'Scissors') {
+                score.win++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return 'User won.';
+            } else if (computerChoice === 'Rock') {
+                score.tie++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return `It's a tie.`;
+            } else if (computerChoice === 'Paper') {
+                score.loss++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return 'Computer has won.';
+            }
+        } else if (userChoice === 'Paper') {
+            if (computerChoice === 'Rock') {
+                score.win++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return 'User won.';
+            } else if (computerChoice === 'Paper') {
+                score.tie++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return `It's a tie.`;
+            } else if (computerChoice === 'Scissors') {
+                score.loss++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return 'Computer has won.';
+            }
+        } else if (userChoice === 'Scissors') {
+            if (computerChoice === 'Paper') {
+                score.win++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return 'User won.';
+            } else if (computerChoice === 'Scissors') {
+                score.tie++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return `It's a tie.`;
+            } else if (computerChoice === 'Rock') {
+                score.loss++;
+                localStorage.setItem('key1', JSON.stringify(score));
+                return 'Computer has won.';
+            }
+        }
+    }
+
+
+
+ // Custom alert function
+ function showCustomAlert(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert';
+    alertDiv.innerText = message;
+
+    // Add alert to the document
+    document.body.appendChild(alertDiv);
+
+    // Show alert
+    alertDiv.style.display = 'block';
+
+    // Hide after 3 seconds
+    setTimeout(() => {
+        alertDiv.style.display = 'none';
+        document.body.removeChild(alertDiv); // Remove from DOM
+    }, 3000);
+}
+
+
+    let score = {
+        win: 0,
+        loss: 0,
+        tie: 0,
+        showScore: function (userChoice, computerChoice, result) {
+            alert(`Your choice is ${userChoice} and computer's choice is ${computerChoice}
+            ${result}
+            Win: ${this.win}
+            Loss: ${this.loss}
+            Tie: ${this.tie}`);
+        }
+    };
+   
+   
+    // Load the score from localStorage if available
+    if (localStorage.getItem('key1')) {
+        score = JSON.parse(localStorage.getItem('key1'));
+
+        // Reassign the `showScore` function after loading from localStorage
+        score.showScore = function (userChoice, computerChoice, result) {
+            document.querySelector('#user-move').innerText = `Your choice is ${userChoice}`;
+            document.querySelector('#computer-move').innerText = `computer's choice is ${computerChoice}`;
+            document.querySelector('#result').innerText = ` ${result}`;
+            document.querySelector('#score').innerHTML = `
+    <h3>Current match score</h3>
+    win: ${score.win} loss: ${score.loss} tie: ${score.tie}`;
+
+        };
+    } else {
+        localStorage.setItem('key1', JSON.stringify(score));
+        
+    }
+    document.querySelector('#score').innerHTML = `
+    <h3>Current match score</h3>
+    win: ${score.win} loss: ${score.loss} tie: ${score.tie}`;
+    //localStorage.clear();
+
+</script>
+
+</html>
